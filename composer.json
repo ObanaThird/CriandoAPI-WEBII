@@ -1,0 +1,9 @@
+{
+    "name": "obana/api",
+    "autoload": {
+        "psr-4": {
+            "Obana\\Api\\": "src/"
+        }
+    },
+    "require": {}
+}
