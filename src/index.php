@@ -33,7 +33,7 @@ switch($method) {
                 $users = New UserController();
                 $resposta = $users->insertUsers($data);
                 http_response_code(200);
-                echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso', 'dados'=> $data]);
+                echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso']);
                 break;
             case '/produtos':
                 $data = json_decode(file_get_contents('php://input'), true);
