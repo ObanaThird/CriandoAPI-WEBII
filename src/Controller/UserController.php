@@ -6,16 +6,16 @@ Class UserController {
     public function getUsers(){
         return ['nome'=> 'Obana', 'idade'=> 25];
     }
-    public function insertUsers(){
+    public function insertUsers($data){
         $data+=5;
-        return ['Idade'=>$data];
+        return ['Idade + 5 = '=>$data];
     }
-    public function updateUsers(){
+    public function updateUsers($data){
         $data+=5;
-        return ['Idade'=>$data];
+        return ['Idade + 5 = '=>$data];
     }
-    public function deleteUsers(){
+    public function deleteUsers($data){
         $data-=5;
-        return ['Idade'=>$data];
+        return ['Idade - 5 = '=>$data];
     }
 }

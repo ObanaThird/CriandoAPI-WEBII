@@ -17,15 +17,15 @@ switch($method) {
                 $resposta = $users->getUsers();
                 if($resposta) {
                     http_response_code(200);
-                    echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso', 'Usuarios'=> $resposta]);
+                    echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Usuarios'=> $resposta]);
                 }
                 break;
             case '/produtos':
                 http_response_code(200);
-                echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso', 'Usuarios'=> $resposta]);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Usuarios'=> $resposta]);
                 break;
         }
-        break;
+    break;
     case 'POST':
         switch($uri) {
             case '/users':
@@ -33,42 +33,70 @@ switch($method) {
                 $users = New UserController();
                 $resposta = $users->insertUsers($data);
                 http_response_code(200);
-                echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso']);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Idade= '=> $resposta]);
                 break;
             case '/produtos':
                 $data = json_decode(file_get_contents('php://input'), true);
                 http_response_code(200);
-                echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso', 'dados'=> $data]);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Idade + 5 = '=> $resposta]);
                 break;
             default:
                 echo json_encode(['URI Invalido']);
+                break;
         }
+    break;
     case 'PUT':
-        case '/produtos':
-            if(preg_match('/\/users\/(\+d)/', $uri, $match)){
+        switch($uri){
+            case (preg_match('/\/users\/(\d+)/', $uri, $match) ? true : false):
                 $id = $match[1];
-                $users = New UserController();
+                $users = new UserController();
                 $resposta = $users->updateUsers($id);
-                $data = json_decode(200);
-                echo json_encode(['status'=> true, 'message'=> 'recebido com sucesso', 'id'=> $id]);
-            }
-            break;
-        break;
-    case 'DELETE':
-        if(preg_match('/\/users\/(\+d)/', $uri, $match)){
-            $id = $match[1];
-            $users = New UserController();
-            $resposta = $users->deleteUsers($id);
-            $data = json_decode(200);
-            echo json_encode(['status'=> true, 'message'=> 'deletado com sucesso', 'id'=> $id]);
+                http_response_code(200);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Resultado='=> $resposta]);
+                break;
+            case (preg_match('/\/produtos\/(\d+)/', $uri, $match) ? true : false):
+                $id = $match[1];
+                $users = new UserController();
+                $resposta = $users->updateUsers($id);
+                http_response_code(200);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Resultado='=> $resposta]);
+                break;
+            default:
+                http_response_code(404);
+                echo json_encode(['status' => false, 'Message' => 'URI nao encontrada']);
+                break;
         }
-    
+        break;
+    break;
+    case 'DELETE':
+        switch($uri){
+            case (preg_match('/\/users\/(\d+)/', $uri, $match) ? true : false):
+                $id = $match[1];
+                $users = new UserController();
+                $resposta = $users->deleteUsers($id);
+                http_response_code(200);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Resultado='=> $resposta]);
+                break;
+            case (preg_match('/\/produtos\/(\d+)/', $uri, $match) ? true : false):
+                $id = $match[1];
+                $users = new UserController();
+                $resposta = $users->deleteUsers($id);
+                http_response_code(200);
+                echo json_encode(['status'=> true, 'Message'=> 'recebido com sucesso.', 'Resultado='=> $resposta]);
+                break;
+            default:
+                http_response_code(404);
+                echo json_encode(['status' => false, 'Message' => 'URI nao encontrada']);
+                break;
+        }
+        break;
+    break;
 }
 
 /*if ($methodo === 'GET' && $uri === '/vendor') {
     http_response_code(200);
     echo json_encode(
-        ['status' => true, 'message' => 'chegou com sucesso']
+        ['status' => true, 'Message' => 'chegou com sucesso.']
     );
 } elseif ($methodo === 'POST' && $uri === '/vendor') {
     $input = json_decode(file_get_contents('php//input'), true);
