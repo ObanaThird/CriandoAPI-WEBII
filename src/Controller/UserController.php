@@ -1,8 +1,15 @@
 <?php
 
 namespace Obana\Api\Controller;
+use Database\Database;
 
 Class UserController {
+    private $conn;
+
+    public function __construct(){
+        $this->conn = new Database();
+    }
+
     public function getUsers(){
         return ['nome'=> 'Obana', 'idade'=> 25];
     }
@@ -18,4 +25,5 @@ Class UserController {
         $data-=5;
         return ['Idade - 5 = '=>$data];
     }
+
 }
